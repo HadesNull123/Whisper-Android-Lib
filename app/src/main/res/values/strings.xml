@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WhisperFinal</string>
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="transcribe">Transcribe</string>
+</resources>
