@@ -445,9 +445,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Contact
 
-- **Email**: your-email@example.com
 - **GitHub Issues**: [Create an issue](../../issues)
-- **Documentation**: [Wiki](../../wiki)
 
 ## 🙏 Acknowledgments
 

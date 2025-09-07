@@ -445,9 +445,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Liên hệ
 
-- **Email**: your-email@example.com
 - **GitHub Issues**: [Tạo issue](../../issues)
-- **Documentation**: [Wiki](../../wiki)
 
 ## 🙏 Acknowledgments
 
