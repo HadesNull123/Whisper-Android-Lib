@@ -421,6 +421,65 @@ if (!whisperLib.isRecording()) {
 }
 ```
 
+## 🔧 Build Custom Models (Thanks @vilassn)
+
+### Creating Custom Whisper Models
+
+You can create custom Whisper models for specific languages and tasks:
+
+#### Step 1: Install dependencies
+
+```bash
+pip install tensorflow==2.14.0
+pip install transformers
+pip install datasets
+```
+
+#### Step 2: Run model generation script
+
+Open `models_and_scripts/whisper_tflite_model_generation_and_test.ipynb` in Jupyter Notebook:
+
+```python
+# Configure model as per requirement
+model_name = "whisper-base"          # whisper-tiny, whisper-tiny.en, whisper-base, whisper-base.en, whisper-small, whisper-small.en
+
+# Configure language and task
+language_code = "<|en|>"             # <|en|>, <|fr|>, <|hi|>, <|ko|>, <|de|>, <|zh|>, <|ja|>, <|es|>, <|ar|>, <|ru|>, ...
+task_code     = "<|transcribe|>"     # <|transcribe|>, <|translate|>
+```
+
+#### Step 3: Available Models
+
+| Model | Size | Multilingual | English Only |
+|-------|------|--------------|--------------|
+| whisper-tiny | ~39 MB | ✅ | ✅ (.en) |
+| whisper-base | ~74 MB | ✅ | ✅ (.en) |
+| whisper-small | ~244 MB | ✅ | ✅ (.en) |
+| whisper-medium | ~769 MB | ✅ | ✅ (.en) |
+| whisper-large | ~1550 MB | ✅ | ❌ |
+
+#### Step 4: Using custom models
+
+```kotlin
+// Load custom model
+val customModelPath = "/path/to/your/custom_model.tflite"
+val isMultilingual = true // or false for English-only
+val success = whisperLib.loadModel(customModelPath, isMultilingual)
+```
+
+#### Step 5: Copy model to assets
+
+1. Copy `.tflite` file to `app/src/main/assets/`
+2. Copy vocabulary `.bin` file to `app/src/main/assets/`
+3. Rebuild project
+
+### Model Optimization Tips
+
+- **Use whisper-tiny** for mobile apps (lightest)
+- **Use whisper-base** for balance between accuracy and size
+- **Use .en models** if you only need English recognition
+- **Quantization** can reduce model size by 50%
+
 ## 📱 Demo App
 
 See detailed examples in the `demo/` folder with features:

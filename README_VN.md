@@ -421,6 +421,65 @@ if (!whisperLib.isRecording()) {
 }
 ```
 
+## 🔧 Build Custom Models (Thanks @vilassn)
+
+### Tạo model Whisper tùy chỉnh
+
+Bạn có thể tạo model Whisper tùy chỉnh cho ngôn ngữ và tác vụ cụ thể:
+
+#### Bước 1: Cài đặt dependencies
+
+```bash
+pip install tensorflow==2.14.0
+pip install transformers
+pip install datasets
+```
+
+#### Bước 2: Chạy script tạo model
+
+Mở file `models_and_scripts/whisper_tflite_model_generation_and_test.ipynb` trong Jupyter Notebook:
+
+```python
+# Cấu hình model theo yêu cầu
+model_name = "whisper-base"          # whisper-tiny, whisper-tiny.en, whisper-base, whisper-base.en, whisper-small, whisper-small.en
+
+# Cấu hình ngôn ngữ và tác vụ
+language_code = "<|en|>"             # <|en|>, <|fr|>, <|hi|>, <|ko|>, <|de|>, <|zh|>, <|ja|>, <|es|>, <|ar|>, <|ru|>, ...
+task_code     = "<|transcribe|>"     # <|transcribe|>, <|translate|>
+```
+
+#### Bước 3: Các model có sẵn
+
+| Model | Size | Multilingual | English Only |
+|-------|------|--------------|--------------|
+| whisper-tiny | ~39 MB | ✅ | ✅ (.en) |
+| whisper-base | ~74 MB | ✅ | ✅ (.en) |
+| whisper-small | ~244 MB | ✅ | ✅ (.en) |
+| whisper-medium | ~769 MB | ✅ | ✅ (.en) |
+| whisper-large | ~1550 MB | ✅ | ❌ |
+
+#### Bước 4: Sử dụng model tùy chỉnh
+
+```kotlin
+// Load model tùy chỉnh
+val customModelPath = "/path/to/your/custom_model.tflite"
+val isMultilingual = true // hoặc false cho English-only
+val success = whisperLib.loadModel(customModelPath, isMultilingual)
+```
+
+#### Bước 5: Copy model vào assets
+
+1. Copy file `.tflite` vào `app/src/main/assets/`
+2. Copy file vocabulary `.bin` vào `app/src/main/assets/`
+3. Rebuild project
+
+### Model Optimization Tips
+
+- **Sử dụng whisper-tiny** cho ứng dụng mobile (nhẹ nhất)
+- **Sử dụng whisper-base** cho cân bằng giữa độ chính xác và kích thước
+- **Sử dụng .en models** nếu chỉ cần nhận dạng tiếng Anh
+- **Quantization** có thể giảm kích thước model xuống 50%
+
 ## 📱 Demo App
 
 Xem thêm ví dụ chi tiết trong thư mục `demo/` với các tính năng:
